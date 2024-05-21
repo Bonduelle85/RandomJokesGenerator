@@ -52,18 +52,24 @@ class ScenarioTest {
 
         loadPage.waitUntilDisappear()
 
-        jokePage.checkStateIsJoke(value = 0)
+        jokePage.checkStateIsJoke()
         recreate()
-        jokePage.checkStateIsJoke(value = 0)
+        jokePage.checkStateIsJoke()
 
         repeat(9) {
             jokePage.clickNextJoke()
-            jokePage.checkStateIsJoke(value = it + 1)
+            jokePage.checkStateIsJoke()
             recreate()
-            jokePage.checkStateIsJoke(value = it + 1)
+            jokePage.checkStateIsJoke()
         }
 
         jokePage.clickNextJoke()
+        jokePage.checkStateIsAgain()
+        recreate()
+        jokePage.checkStateIsAgain()
+
+        jokePage.clickAgain()
+
         loadPage.checkProgressState()
     }
 }
