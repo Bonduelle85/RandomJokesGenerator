@@ -24,7 +24,7 @@ class ScenarioTest {
     @Before
     fun setup() {
         loadPage = LoadPage()
-        jokePage = JokePage()
+        jokePage = JokePage("0", "0")
     }
 
     /**
@@ -58,6 +58,12 @@ class ScenarioTest {
 
         repeat(9) {
             jokePage.clickNextJoke()
+
+            jokePage = JokePage(
+                "${it+1}",
+                "${it+1}"
+            )
+
             jokePage.checkStateIsJoke()
             recreate()
             jokePage.checkStateIsJoke()
