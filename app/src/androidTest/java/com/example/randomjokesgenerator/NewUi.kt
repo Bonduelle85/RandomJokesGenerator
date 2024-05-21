@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.Button
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isNotEnabled
@@ -12,14 +11,13 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.allOf
 
 class NewUi(rootId: Matcher<View>, parent: Matcher<View>) {
 
     private val interaction = onView(
         allOf(
             withId(R.id.newButton),
-            withText(R.string.newJokes),
+            withText(R.string.new_joke),
             isAssignableFrom(Button::class.java),
             rootId,
             parent

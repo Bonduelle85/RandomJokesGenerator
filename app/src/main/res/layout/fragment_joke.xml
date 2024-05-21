@@ -39,7 +39,7 @@
         android:text="@string/next_joke" />
 
     <Button
-        android:id="@+id/retryButton"
+        android:id="@+id/newButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="16dp"

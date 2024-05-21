@@ -17,7 +17,7 @@ class NextUi(rootId: Matcher<View>, parent: Matcher<View>) {
     private val interaction = onView(
         allOf(
             withId(R.id.nextButton),
-            withText(R.string.nextJoke),
+            withText(R.string.next_joke),
             isAssignableFrom(Button::class.java),
             rootId,
             parent
