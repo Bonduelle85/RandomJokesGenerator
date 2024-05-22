@@ -17,6 +17,7 @@
         android:id="@+id/categoryTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:freezesText="true"
         android:layout_marginBottom="16dp"
         tools:text="Category: Dark"/>
 
@@ -24,6 +25,7 @@
         android:id="@+id/jokeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:freezesText="true"
         android:layout_marginBottom="16dp"
         tools:text="I didn't vaccinate my 10 kids and the one that survived is fine!"/>
 
@@ -32,13 +34,13 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <Button
+    <com.example.randomjokesgenerator.joke.views.CustomButton
         android:id="@+id/nextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/next_joke" />
 
-    <Button
+    <com.example.randomjokesgenerator.joke.views.CustomButton
         android:id="@+id/newButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

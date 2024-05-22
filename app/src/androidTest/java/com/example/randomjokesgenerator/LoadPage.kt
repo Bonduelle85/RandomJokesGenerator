@@ -11,7 +11,7 @@ import org.hamcrest.Matcher
 
 class LoadPage {
 
-    private val rootId: Matcher<View> = withParent(withId(R.id.loadLayout))
+    private val rootId: Matcher<View> = withParent(withId(R.id.rootLayout))
     private val parent: Matcher<View> = withParent(isAssignableFrom(LinearLayout::class.java))
 
     private val errorUi = ErrorUi(rootId, parent)
