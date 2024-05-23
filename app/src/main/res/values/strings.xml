@@ -2,5 +2,5 @@
     <string name="app_name">RandomJokesGenerator</string>
     <string name="retry">retry</string>
     <string name="next_joke">next joke</string>
-    <string name="new_joke">new jokes</string>
+    <string name="download_jokes">download new jokes</string>
 </resources>

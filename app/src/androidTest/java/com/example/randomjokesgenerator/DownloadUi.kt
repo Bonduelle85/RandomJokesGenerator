@@ -12,12 +12,12 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.Matcher
 
-class NewUi(rootId: Matcher<View>, parent: Matcher<View>) {
+class DownloadUi(rootId: Matcher<View>, parent: Matcher<View>) {
 
     private val interaction = onView(
         allOf(
-            withId(R.id.newButton),
-            withText(R.string.new_joke),
+            withId(R.id.downloadButton),
+            withText(R.string.download_jokes),
             isAssignableFrom(Button::class.java),
             rootId,
             parent

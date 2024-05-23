@@ -1,5 +1,11 @@
 package com.example.randomjokesgenerator.load.presentation
 
+import com.example.randomjokesgenerator.load.views.error.ErrorUiState
+import com.example.randomjokesgenerator.load.views.error.UpdateError
+import com.example.randomjokesgenerator.load.views.progress.ProgressUiState
+import com.example.randomjokesgenerator.load.views.progress.UpdateProgress
+import com.example.randomjokesgenerator.load.views.retry.RetryUiState
+import com.example.randomjokesgenerator.load.views.retry.UpdateRetry
 
 
 interface LoadUiState {

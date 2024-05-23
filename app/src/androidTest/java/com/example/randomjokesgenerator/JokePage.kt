@@ -18,18 +18,18 @@ class JokePage(
     private val categoryUi = CategoryUi(rootId, parent)
     private val jokeUi = JokeUi(rootId, parent)
     private val nextUi = NextUi(rootId, parent)
-    private val newUi = NewUi(rootId, parent)
+    private val downloadUi = DownloadUi(rootId, parent)
 
     fun checkStateIsJoke() {
         categoryUi.check(category)
         jokeUi.check(joke)
         nextUi.checkStateIsJoke()
-        newUi.checkStateIsJoke()
+        downloadUi.checkStateIsJoke()
     }
 
     fun checkStateIsAgain() {
         nextUi.checkStateIsAgain()
-        newUi.checkStateIsAgain()
+        downloadUi.checkStateIsAgain()
     }
 
     fun clickNextJoke() {
@@ -37,6 +37,6 @@ class JokePage(
     }
 
     fun clickAgain() {
-        newUi.click()
+        downloadUi.click()
     }
 }
