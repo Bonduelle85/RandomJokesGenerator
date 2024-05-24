@@ -1,4 +1,4 @@
-package com.example.randomjokesgenerator.joke.views
+package com.example.randomjokesgenerator.joke.views.button
 
 import android.os.Parcel
 import android.os.Parcelable

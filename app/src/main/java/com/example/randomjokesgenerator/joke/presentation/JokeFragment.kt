@@ -14,7 +14,6 @@ class JokeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: JokeViewModel
-    private lateinit var uiState: JokeUiState
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,43 +27,33 @@ class JokeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       val manageViewModels = (activity as ManageViewModels)
-       viewModel = manageViewModels.viewModel(JokeViewModel::class.java)
+        lateinit var uiState: JokeUiState
+
+        val showUi: () -> Unit = {
+            uiState.update(
+                categoryView = binding.categoryTextView,
+                jokeView = binding.jokeTextView,
+                nextView = binding.nextButton,
+                downloadView = binding.exitButton,
+            )
+        }
+
+        val manageViewModels = (activity as ManageViewModels)
+        viewModel = manageViewModels.viewModel(JokeViewModel::class.java)
 
         binding.nextButton.setOnClickListener {
-            viewModel.nextJoke()
-            uiState.update( // dry 3 times
-                counterView = binding.categoryTextView,
-                wordView = binding.jokeTextView,
-                scoreView = binding.nextButton,
-                submitView = binding.downloadButton,
-            )
+            uiState = viewModel.nextJoke()
+            showUi.invoke()
         }
 
-        binding.downloadButton.setOnClickListener {
-            viewModel.clear() // reset repository
-            manageViewModels.clear(JokeViewModel::class.java) // delete VM instance
-            (activity as JokeNavigation).navigateFromJoke() // activity or requireActivity()
+        binding.exitButton.setOnClickListener {
+            viewModel.clear()
+            manageViewModels.clear(JokeViewModel::class.java)
+            (activity as JokeNavigation).navigateFromJoke()
         }
 
-        if (savedInstanceState == null) {
-            uiState = viewModel.init()
-            uiState.update(
-                counterView = binding.categoryTextView,
-                wordView = binding.jokeTextView,
-                scoreView = binding.nextButton,
-                submitView = binding.downloadButton,
-            )
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        uiState.update(counterView = binding.categoryTextView,
-            wordView = binding.jokeTextView,
-            scoreView = binding.nextButton,
-            submitView = binding.downloadButton,)
-        }
+        uiState = viewModel.init(savedInstanceState == null)
+        showUi.invoke()
     }
 }
 

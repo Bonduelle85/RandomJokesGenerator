@@ -1,11 +1,11 @@
-package com.example.randomjokesgenerator.joke.views
+package com.example.randomjokesgenerator.joke.views.button
 
 import android.content.Context
 import android.os.Parcelable
 import android.util.AttributeSet
 import com.google.android.material.button.MaterialButton
 
-class CustomButton : MaterialButton, UpdateCustom {
+class CustomButton : MaterialButton, UpdateButton {
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
@@ -34,7 +34,7 @@ class CustomButton : MaterialButton, UpdateCustom {
     }
 }
 
-interface UpdateCustom {
+interface UpdateButton {
 
     fun changeEnabled(enabled: Boolean)
 }

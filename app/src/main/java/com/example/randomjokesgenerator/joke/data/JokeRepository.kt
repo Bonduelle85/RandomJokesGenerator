@@ -1,27 +1,52 @@
 package com.example.randomjokesgenerator.joke.data
 
+import com.example.randomjokesgenerator.core.data.StringCache
+import com.example.randomjokesgenerator.joke.presentation.JokeScreen
+
 interface JokeRepository {
 
-    fun getCurrentJoke(): Pair<String, String>
+    fun getCurrentCategory() : String
+    fun getCurrentJoke() : String
     fun nextJoke()
     fun isLast(): Boolean
+    fun clear()
+    fun saveLastScreenIsJoke()
 
     class Base(
-        cachedJokes: CacheDataSource,
+        private val cachedJokes: CacheDataSource,
+        private val lastScreen: StringCache,
+        private val max: Int
     ) : JokeRepository {
 
-        private val list: List<Pair<String, String>> = cachedJokes.read()
+        private var currentIndex = 0
 
-        override fun getCurrentJoke(): Pair<String, String> {
-            TODO("Not yet implemented")
+        override fun getCurrentCategory(): String {
+            val list: List<Joke> = cachedJokes.read()
+            return list[currentIndex].category
+        }
+
+        override fun getCurrentJoke(): String {
+            val list: List<Joke> = cachedJokes.read()
+            return list[currentIndex].joke
         }
 
         override fun nextJoke() {
-
+            currentIndex++
         }
 
-        override fun isLast(): Boolean {
-            TODO("Not yet implemented")
+        override fun isLast(): Boolean = currentIndex == max
+
+        override fun clear() {
+            currentIndex = 0
+        }
+
+        override fun saveLastScreenIsJoke() {
+            lastScreen.save(JokeScreen::class.java.canonicalName!!)
         }
     }
 }
+
+data class Joke(
+    val category: String,
+    val joke: String,
+)

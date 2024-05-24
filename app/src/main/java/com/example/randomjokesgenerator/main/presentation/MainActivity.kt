@@ -20,7 +20,8 @@ class MainActivity : AppCompatActivity(), Navigation, ManageViewModels {
 
         val viewModel = viewModel(MainViewModel::class.java)
 
-        viewModel.init(savedInstanceState == null)
+        val lastScreen =  viewModel.init(savedInstanceState == null)
+        navigate(lastScreen)
     }
 
 

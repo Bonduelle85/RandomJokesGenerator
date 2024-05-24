@@ -16,7 +16,7 @@ class DownloadUi(rootId: Matcher<View>, parent: Matcher<View>) {
 
     private val interaction = onView(
         allOf(
-            withId(R.id.downloadButton),
+            withId(R.id.`@+id/exit_button`),
             withText(R.string.download_jokes),
             isAssignableFrom(Button::class.java),
             rootId,

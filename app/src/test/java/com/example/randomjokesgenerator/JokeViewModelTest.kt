@@ -1,5 +1,6 @@
 package com.example.randomjokesgenerator
 
+import com.example.randomjokesgenerator.joke.data.Joke
 import com.example.randomjokesgenerator.joke.data.JokeRepository
 import com.example.randomjokesgenerator.joke.presentation.JokeUiState
 import com.example.randomjokesgenerator.joke.presentation.JokeViewModel
@@ -12,31 +13,50 @@ import org.junit.Before
 class JokeViewModelTest {
 
     private lateinit var viewModel: JokeViewModel
-    private lateinit var actualUiState: JokeUiState
-    private lateinit var expectedUiState: JokeUiState
+    private lateinit var repository: FakeJokeRepository
 
     @Before
     fun setup() {
-        viewModel = JokeViewModel(repository = FakeJokeRepository())
+        repository = FakeJokeRepository()
+        viewModel = JokeViewModel(repository = repository)
     }
 
+    /**
+     * TestCase
+     *
+     * JokePage, Состояние Joke
+     * Нажать на “next joke”
+     * JokePage, Состояние Again
+     *
+     * */
+
     @Test
-    fun caseTest() {
-        actualUiState = viewModel.init()
+    fun test() {
+
+        // first run
+        var actualUiState = viewModel.init(true)
+        var expectedUiState: JokeUiState = JokeUiState.Joke(
+            category = "Category 0",
+            joke = "Joke 0",
+        )
+        assertEquals(expectedUiState, actualUiState)
+        assertEquals(true, repository.saveLastScreenIsCalled)
+
+        // configuration changed - same state
+        actualUiState = viewModel.init(false)
         expectedUiState = JokeUiState.Joke(
             category = "Category 0",
             joke = "Joke 0",
         )
         assertEquals(expectedUiState, actualUiState)
 
-        repeat(8) {
-            actualUiState = viewModel.nextJoke()
-            expectedUiState = JokeUiState.Joke(
-                category = "Category ${it+1}",
-                joke = "Joke ${it+1}",
-            )
-            assertEquals(expectedUiState, actualUiState)
-        }
+        // next state
+        actualUiState = viewModel.nextJoke()
+        expectedUiState = JokeUiState.Joke(
+            category = "Category 1",
+            joke = "Joke 1",
+        )
+        assertEquals(expectedUiState, actualUiState)
 
         actualUiState = viewModel.nextJoke()
         expectedUiState = JokeUiState.Again
@@ -44,32 +64,36 @@ class JokeViewModelTest {
     }
 }
 
-private class FakeJokeRepository: JokeRepository {
+class FakeJokeRepository : JokeRepository {
 
-    private val list = listOf<Pair<String, String>>(
-        "Category 0" to "Joke 0",
-        "Category 1" to "Joke 1",
-        "Category 2" to "Joke 2",
-        "Category 3" to "Joke 3",
-        "Category 4" to "Joke 4",
-        "Category 5" to "Joke 5",
-        "Category 6" to "Joke 6",
-        "Category 7" to "Joke 7",
-        "Category 8" to "Joke 8",
-        "Category 9" to "Joke 9",
+    private val list = listOf(
+        Joke(
+            category = "Category 0",
+            joke = "Joke 0",
+        ),
+        Joke(
+            category = "Category 1",
+            joke = "Joke 1",
+        )
     )
 
+    var saveLastScreenIsCalled = false
     private var currentJokeIndex = 0
-
-    override fun getCurrentJoke(): Pair<String, String> = list[currentJokeIndex]
 
     override fun nextJoke() {
         currentJokeIndex++
     }
 
-    override fun isLast(): Boolean = list[9] == "Category 9" to "Joke 9"
+    override fun isLast(): Boolean = currentJokeIndex == list.size - 1
 
-    fun reset() {
+    override fun clear() {
         currentJokeIndex = 0
+    }
+
+    override fun getCurrentCategory(): String = list[currentJokeIndex].category
+    override fun getCurrentJoke(): String = list[currentJokeIndex].joke
+
+    override fun saveLastScreenIsJoke() {
+        saveLastScreenIsCalled = true
     }
 }

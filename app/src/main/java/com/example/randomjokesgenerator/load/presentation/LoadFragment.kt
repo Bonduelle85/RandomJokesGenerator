@@ -8,14 +8,13 @@ import androidx.fragment.app.Fragment
 import com.example.randomjokesgenerator.core.di.ManageViewModels
 import com.example.randomjokesgenerator.databinding.FragmentLoadBinding
 
-class LoadFragment : Fragment(), AsyncUpdateLoad { // (LoadUiState) -> Unit
+class LoadFragment : Fragment(), UpdateUiCallback {
 
     private var _binding: FragmentLoadBinding? = null
     private val binding: FragmentLoadBinding
         get() = _binding ?: throw RuntimeException("FragmentLoadBinding == null")
 
     private lateinit var viewModel: LoadViewModel
-    private lateinit var showUi: (LoadUiState) -> Unit
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +38,22 @@ class LoadFragment : Fragment(), AsyncUpdateLoad { // (LoadUiState) -> Unit
         viewModel.init(firstRun = savedInstanceState == null)
     }
 
-    override fun asyncUpdateLoad(loadUiState: LoadUiState) {
+    override fun onResume() {
+        super.onResume()
+        viewModel.startGettingUpdates(observer = this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.stopGettingUpdates()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun updateUi(loadUiState: LoadUiState) {
         loadUiState.update(
             binding.progressBar,
             binding.errorTextView,
@@ -51,25 +65,10 @@ class LoadFragment : Fragment(), AsyncUpdateLoad { // (LoadUiState) -> Unit
             (requireActivity() as LoadNavigation).navigateFromLoad()
         }
     }
-
-    override fun onPause() {
-        super.onPause()
-        viewModel.stopGettingUpdates()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.startGettingUpdates(observer = showUi)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
 
-interface AsyncUpdateLoad{
-    fun asyncUpdateLoad(loadUiState: LoadUiState)
+interface UpdateUiCallback{
+    fun updateUi(loadUiState: LoadUiState)
 }
 
 interface LoadNavigation {
