@@ -28,7 +28,7 @@ interface JokeUiState : Serializable {
         }
     }
 
-    object Again : JokeUiState {
+    object NoMoreJokes : JokeUiState {
         override fun update(
             categoryView: UpdateText,
             jokeView: UpdateText,

@@ -1,7 +1,7 @@
 package com.example.randomjokesgenerator.core.di
 
 import com.example.randomjokesgenerator.joke.di.ProvideJokeViewModel
-import com.example.randomjokesgenerator.load.di.ProvideLoadViewModel
+//import com.example.randomjokesgenerator.load.di.ProvideLoadViewModel
 import com.example.randomjokesgenerator.main.di.ProvideMainViewModel
 import com.example.randomjokesgenerator.main.presentation.MyViewModel
 
@@ -37,17 +37,17 @@ interface ProvideViewModel {
 
     class Make(core: Core) : ProvideViewModel {
 
-        private val chain: ProvideViewModel
+//        private val chain: ProvideViewModel
 
         init {
             var temp: ProvideViewModel = Error()
             temp = ProvideMainViewModel(core, temp)
             temp = ProvideJokeViewModel(core, temp)
-            chain = ProvideLoadViewModel(core, temp)
+//            chain = ProvideLoadViewModel(core, temp)
         }
 
         override fun <T : MyViewModel> viewModel(clazz: Class<T>): T {
-            return chain.viewModel(clazz)
+            return TODO() // chain.viewModel(clazz)
         }
     }
 }

@@ -40,7 +40,7 @@ class LoadFragment : Fragment(), UpdateUiCallback {
 
     override fun onResume() {
         super.onResume()
-        viewModel.startGettingUpdates(observer = this)
+        viewModel.startGettingUpdates(showUi = this)
     }
 
     override fun onPause() {

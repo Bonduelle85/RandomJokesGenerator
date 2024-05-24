@@ -5,6 +5,7 @@ import com.example.randomjokesgenerator.load.data.LoadResult
 import com.example.randomjokesgenerator.load.presentation.LoadUiState
 import com.example.randomjokesgenerator.load.presentation.LoadViewModel
 import com.example.randomjokesgenerator.load.presentation.UiObservable
+import com.example.randomjokesgenerator.load.presentation.UpdateUiCallback
 import com.example.randomjokesgenerator.main.presentation.RunAsync
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -80,7 +81,7 @@ class FakeRunAsync : RunAsync {
 class FakeUiObservable : UiObservable {
     val uiStateList = mutableListOf<LoadUiState>()
 
-    override fun updateObserver(observer: (LoadUiState) -> Unit) {
+    override fun updateObserver(observer: UpdateUiCallback) {
 
     }
 

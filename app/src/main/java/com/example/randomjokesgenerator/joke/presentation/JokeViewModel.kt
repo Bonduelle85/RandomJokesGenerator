@@ -22,7 +22,7 @@ class JokeViewModel(
     fun nextJoke(): JokeUiState {
         repository.nextJoke()
         return if (repository.isLast()) {
-            JokeUiState.Again
+            JokeUiState.NoMoreJokes
         } else {
             JokeUiState.Joke(
                 category = repository.getCurrentCategory(),

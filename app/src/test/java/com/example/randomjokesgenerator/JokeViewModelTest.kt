@@ -42,12 +42,9 @@ class JokeViewModelTest {
         assertEquals(expectedUiState, actualUiState)
         assertEquals(true, repository.saveLastScreenIsCalled)
 
-        // configuration changed - same state
+        // configuration changed
         actualUiState = viewModel.init(false)
-        expectedUiState = JokeUiState.Joke(
-            category = "Category 0",
-            joke = "Joke 0",
-        )
+        expectedUiState = JokeUiState.Empty
         assertEquals(expectedUiState, actualUiState)
 
         // next state
@@ -59,7 +56,7 @@ class JokeViewModelTest {
         assertEquals(expectedUiState, actualUiState)
 
         actualUiState = viewModel.nextJoke()
-        expectedUiState = JokeUiState.Again
+        expectedUiState = JokeUiState.NoMoreJokes
         assertEquals(expectedUiState, actualUiState)
     }
 }
@@ -84,7 +81,7 @@ class FakeJokeRepository : JokeRepository {
         currentJokeIndex++
     }
 
-    override fun isLast(): Boolean = currentJokeIndex == list.size - 1
+    override fun isLast(): Boolean = currentJokeIndex == list.size
 
     override fun clear() {
         currentJokeIndex = 0

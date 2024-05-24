@@ -25,7 +25,7 @@ class LoadViewModel(
 
     fun retry() = init(true)
 
-    fun startGettingUpdates(showUi: (LoadUiState) -> Unit) {
+    fun startGettingUpdates(showUi: UpdateUiCallback) {
         uiObservable.updateObserver(showUi)
     }
 

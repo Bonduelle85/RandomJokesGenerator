@@ -5,7 +5,7 @@ interface UpdateUi {
 }
 
 interface UpdateObserver {
-    fun updateObserver(observer: (LoadUiState) -> Unit)
+    fun updateObserver(observer: UpdateUiCallback)
 
     fun clearObserver()
 }
@@ -14,21 +14,21 @@ interface UiObservable : UpdateObserver, UpdateUi {
 
     class Base : UiObservable {
 
-        private var showUi: ((LoadUiState) -> Unit)? = null
+        private var showUi: UpdateUiCallback? = null
         private var cache: LoadUiState? = null
 
         override fun updateUiState(uiState: LoadUiState) {
             if (showUi != null) {
-                showUi!!.invoke(uiState)
+                showUi!!.updateUi(uiState)
             } else {
                 cache = uiState
             }
         }
 
-        override fun updateObserver(observer: (LoadUiState) -> Unit) {
+        override fun updateObserver(observer: UpdateUiCallback) {
             showUi = observer
             if (cache != null) {
-                showUi!!.invoke(cache!!)
+                showUi!!.updateUi(cache!!)
                 cache = null
             }
         }
