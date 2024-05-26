@@ -9,16 +9,23 @@ interface LoadRepository {
 
     class Base(
         private val lastScreen: StringCache,
-        // CloudDataSource,
-        //  CacheDataSource,
+        private val cloudDataSource: CloudDataSource,
+        private val cacheDataSource: CacheDataSource,
     ) : LoadRepository {
         override fun load(): LoadResult {
-            TODO("Not yet implemented")
+            return try {
+                val data: List<CategoryAndJokeCloud> = cloudDataSource.data()
+                cacheDataSource.save(ResponseCloud(items = data))
+                LoadResult.Success
+            } catch (e: Exception) {
+                LoadResult.Error(e.message ?: "error")
+            }
         }
 
 
         override fun saveLastScreenIsLoad() {
-            lastScreen.save(LoadScreen::class.java.canonicalName!!)
+            LoadScreen::class.java.canonicalName?.let { lastScreen.save(it) }
+            // lastScreen.save(LoadScreen::class.java.canonicalName!!)
         }
     }
 }
