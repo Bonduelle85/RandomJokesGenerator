@@ -14,6 +14,5 @@ interface MainRepository {
             val string = lastScreen.read()
             return Class.forName(string).getDeclaredConstructor().newInstance() as Screen
         }
-
     }
 }

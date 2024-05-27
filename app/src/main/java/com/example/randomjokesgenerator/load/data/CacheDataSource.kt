@@ -1,31 +1,26 @@
 package com.example.randomjokesgenerator.load.data
 
+import com.example.randomjokesgenerator.core.data.StringCache
 import com.google.gson.Gson
 import java.io.Serializable
 
 interface CacheDataSource {
 
-    fun save(data: )
+    fun save(data: ResponseCloud)
 
-    fun read():
+    fun read(): List<CategoryAndJokeCloud>
 
     class Base(
         private val stringCache: StringCache,
         private val gson: Gson
     ) : CacheDataSource {
 
-        override fun save(data: List<String>) {
-            val serialisedWrapper = gson.toJson(ListWrapper(data))
-            stringCache.save(serialisedWrapper)
+        override fun save(data: ResponseCloud) {
+            stringCache.save(gson.toJson(data))
         }
 
-        override fun read(): List<String> {
-            val serialisedWrapper = stringCache.read()
-            return gson.fromJson(serialisedWrapper, ListWrapper::class.java).list
+        override fun read(): List<CategoryAndJokeCloud> {
+            return gson.fromJson(stringCache.read(), ResponseCloud::class.java).items
         }
     }
 }
-
-data class ListWrapper(
-    val list: List<String>
-) : Serializable

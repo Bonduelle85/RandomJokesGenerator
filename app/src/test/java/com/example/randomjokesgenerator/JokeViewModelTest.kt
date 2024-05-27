@@ -36,8 +36,8 @@ class JokeViewModelTest {
         // first run
         var actualUiState = viewModel.init(true)
         var expectedUiState: JokeUiState = JokeUiState.Joke(
-            category = "Category 0",
-            joke = "Joke 0",
+            category = "Category0",
+            joke = "Joke0",
         )
         assertEquals(expectedUiState, actualUiState)
         assertEquals(true, repository.saveLastScreenIsCalled)
@@ -50,8 +50,8 @@ class JokeViewModelTest {
         // next state
         actualUiState = viewModel.nextJoke()
         expectedUiState = JokeUiState.Joke(
-            category = "Category 1",
-            joke = "Joke 1",
+            category = "Category1",
+            joke = "Joke1",
         )
         assertEquals(expectedUiState, actualUiState)
 
@@ -65,12 +65,12 @@ class FakeJokeRepository : JokeRepository {
 
     private val list = listOf(
         Joke(
-            category = "Category 0",
-            joke = "Joke 0",
+            category = "Category0",
+            joke = "Joke0",
         ),
         Joke(
-            category = "Category 1",
-            joke = "Joke 1",
+            category = "Category1",
+            joke = "Joke1",
         )
     )
 
@@ -87,8 +87,11 @@ class FakeJokeRepository : JokeRepository {
         currentJokeIndex = 0
     }
 
-    override fun getCurrentCategory(): String = list[currentJokeIndex].category
-    override fun getCurrentJoke(): String = list[currentJokeIndex].joke
+
+    override fun getCurrentJoke(): Joke = Joke(
+        category = list[currentJokeIndex].category,
+        joke = list[currentJokeIndex].joke
+    )
 
     override fun saveLastScreenIsJoke() {
         saveLastScreenIsCalled = true

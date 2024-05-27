@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.example.randomjokesgenerator.core.di
 
 import com.example.randomjokesgenerator.joke.di.ProvideJokeViewModel

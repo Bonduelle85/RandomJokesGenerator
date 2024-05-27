@@ -12,10 +12,9 @@ import com.example.randomjokesgenerator.load.presentation.LoadScreen
 
 class MainActivity : AppCompatActivity(), Navigation, ManageViewModels {
 
-    private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val viewModel = viewModel(MainViewModel::class.java)

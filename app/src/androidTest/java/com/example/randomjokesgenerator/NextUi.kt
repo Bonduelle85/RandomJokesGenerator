@@ -25,11 +25,11 @@ class NextUi(rootId: Matcher<View>, parent: Matcher<View>) {
     )
 
     fun checkStateIsJoke() {
-        interaction.check(matches(isNotEnabled()))
+        interaction.check(matches(isEnabled()))
     }
 
-    fun checkStateIsAgain() {
-        interaction.check(matches(isEnabled()))
+    fun checkStateIsNoMoreJokes() {
+        interaction.check(matches(isNotEnabled()))
     }
 
     fun click() {

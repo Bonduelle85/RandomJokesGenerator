@@ -10,9 +10,10 @@ class JokeViewModel(
     fun init(isFirstTime: Boolean): JokeUiState {
         return if (isFirstTime){
             repository.saveLastScreenIsJoke()
+            val currentJoke = repository.getCurrentJoke()
             return JokeUiState.Joke(
-                category = repository.getCurrentCategory(),
-                joke = repository.getCurrentJoke(),
+                category = currentJoke.category,
+                joke = currentJoke.joke,
             )
         } else {
             JokeUiState.Empty
@@ -24,9 +25,10 @@ class JokeViewModel(
         return if (repository.isLast()) {
             JokeUiState.NoMoreJokes
         } else {
+            val currentJoke = repository.getCurrentJoke()
             JokeUiState.Joke(
-                category = repository.getCurrentCategory(),
-                joke = repository.getCurrentJoke()
+                category = currentJoke.category,
+                joke = currentJoke.joke
             )
         }
 

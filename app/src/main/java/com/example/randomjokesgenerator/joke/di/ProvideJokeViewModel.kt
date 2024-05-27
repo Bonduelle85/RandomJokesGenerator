@@ -9,9 +9,13 @@ import com.example.randomjokesgenerator.joke.presentation.JokeViewModel
 
 class JokeModule(private val core: Core) : Module<JokeViewModel> {
 
-    override fun viewModel(): JokeViewModel = with(core) {
+    override fun viewModel(): JokeViewModel {
         return JokeViewModel(
-
+            JokeRepository.Base(
+                lastScreen = core.lastScreen,
+                cachedJokes = core.cachedJokes,
+                max = core.max
+                )
         )
     }
 }

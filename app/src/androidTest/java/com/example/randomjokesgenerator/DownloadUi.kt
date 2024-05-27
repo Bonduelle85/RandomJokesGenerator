@@ -16,7 +16,7 @@ class DownloadUi(rootId: Matcher<View>, parent: Matcher<View>) {
 
     private val interaction = onView(
         allOf(
-            withId(R.id.`@+id/exit_button`),
+            withId(R.id.downloadButton),
             withText(R.string.download_jokes),
             isAssignableFrom(Button::class.java),
             rootId,
@@ -26,11 +26,11 @@ class DownloadUi(rootId: Matcher<View>, parent: Matcher<View>) {
 
 
     fun checkStateIsJoke() {
-        interaction.check(matches(isEnabled()))
+        interaction.check(matches(isNotEnabled()))
     }
 
-    fun checkStateIsAgain() {
-        interaction.check(matches(isNotEnabled()))
+    fun checkStateIsNoMoreJokes() {
+        interaction.check(matches(isEnabled()))
     }
 
     fun click() {

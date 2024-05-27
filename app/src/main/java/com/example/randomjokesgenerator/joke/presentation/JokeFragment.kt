@@ -34,7 +34,7 @@ class JokeFragment : Fragment() {
                 categoryView = binding.categoryTextView,
                 jokeView = binding.jokeTextView,
                 nextView = binding.nextButton,
-                downloadView = binding.exitButton,
+                downloadView = binding.downloadButton,
             )
         }
 
@@ -46,7 +46,7 @@ class JokeFragment : Fragment() {
             showUi.invoke()
         }
 
-        binding.exitButton.setOnClickListener {
+        binding.downloadButton.setOnClickListener {
             viewModel.clear()
             manageViewModels.clear(JokeViewModel::class.java)
             (activity as JokeNavigation).navigateFromJoke()

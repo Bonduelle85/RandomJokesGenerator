@@ -22,7 +22,6 @@ interface LoadRepository {
             }
         }
 
-
         override fun saveLastScreenIsLoad() {
             LoadScreen::class.java.canonicalName?.let { lastScreen.save(it) }
             // lastScreen.save(LoadScreen::class.java.canonicalName!!)

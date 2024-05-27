@@ -4,11 +4,17 @@ import android.content.Context
 import com.example.randomjokesgenerator.R
 import com.example.randomjokesgenerator.core.data.IntCache
 import com.example.randomjokesgenerator.core.data.StringCache
+import com.example.randomjokesgenerator.load.data.CacheDataSource
 import com.example.randomjokesgenerator.load.presentation.LoadScreen
+import com.google.gson.Gson
 
 class Core(context: Context) {
 
-    val runUiTest: Boolean = false
+    val max = 10
+
+    val runUiTest: Boolean = true
+
+    val gson = Gson()
 
     val sharedPreferencesFileName =
         if (runUiTest) "ui_test"
@@ -17,13 +23,17 @@ class Core(context: Context) {
     val sharedPreferences =
         context.getSharedPreferences(sharedPreferencesFileName, Context.MODE_PRIVATE)
 
-    val currentJokeIndex = IntCache.Base(CURRENT_JOKE_INDEX, sharedPreferences)
+    val cachedJokes = CacheDataSource.Base(
+        StringCache.Base(CACHED_JOKES, sharedPreferences, ""),
+        Gson()
+    )
+
     val lastScreen =
         StringCache.Base(LAST_SCREEN, sharedPreferences, LoadScreen::class.java.canonicalName!!)
 
 
     companion object {
-        const val CURRENT_JOKE_INDEX = "CURRENT_INDEX"
         const val LAST_SCREEN = "LAST_SCREEN"
+        const val CACHED_JOKES = "CACHED_JOKES"
     }
 }

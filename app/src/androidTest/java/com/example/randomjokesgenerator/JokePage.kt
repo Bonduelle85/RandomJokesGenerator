@@ -27,9 +27,9 @@ class JokePage(
         downloadUi.checkStateIsJoke()
     }
 
-    fun checkStateIsAgain() {
-        nextUi.checkStateIsAgain()
-        downloadUi.checkStateIsAgain()
+    fun checkStateIsNoMoreJokes() {
+        nextUi.checkStateIsNoMoreJokes()
+        downloadUi.checkStateIsNoMoreJokes()
     }
 
     fun clickNextJoke() {
