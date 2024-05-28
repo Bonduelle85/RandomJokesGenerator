@@ -6,7 +6,7 @@ import java.io.Serializable
 
 interface CacheDataSource {
 
-    fun save(data: ResponseCloud)
+    suspend fun save(data: ResponseCloud)
 
     fun read(): List<CategoryAndJokeCloud>
 
@@ -15,7 +15,7 @@ interface CacheDataSource {
         private val gson: Gson
     ) : CacheDataSource {
 
-        override fun save(data: ResponseCloud) {
+        override suspend fun save(data: ResponseCloud) {
             stringCache.save(gson.toJson(data))
         }
 

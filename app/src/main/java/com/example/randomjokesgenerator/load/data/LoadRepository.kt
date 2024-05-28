@@ -4,7 +4,8 @@ import com.example.randomjokesgenerator.core.data.StringCache
 import com.example.randomjokesgenerator.load.presentation.LoadScreen
 
 interface LoadRepository {
-    fun load(): LoadResult
+
+    suspend fun load(): LoadResult
     fun saveLastScreenIsLoad()
 
     class Base(
@@ -12,7 +13,8 @@ interface LoadRepository {
         private val cloudDataSource: CloudDataSource,
         private val cacheDataSource: CacheDataSource,
     ) : LoadRepository {
-        override fun load(): LoadResult {
+
+        override suspend fun load(): LoadResult {
             return try {
                 val data: List<CategoryAndJokeCloud> = cloudDataSource.data()
                 cacheDataSource.save(ResponseCloud(items = data))
@@ -23,8 +25,7 @@ interface LoadRepository {
         }
 
         override fun saveLastScreenIsLoad() {
-            LoadScreen::class.java.canonicalName?.let { lastScreen.save(it) }
-            // lastScreen.save(LoadScreen::class.java.canonicalName!!)
+            LoadScreen::class.java.canonicalName?.let { lastScreen.save(it) }  // lastScreen.save(LoadScreen::class.java.canonicalName!!)
         }
     }
 }

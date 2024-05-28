@@ -2,6 +2,8 @@ package com.example.randomjokesgenerator
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.randomjokesgenerator.joke.JokePage
+import com.example.randomjokesgenerator.load.LoadPage
 import com.example.randomjokesgenerator.main.presentation.MainActivity
 import org.junit.Assert.*
 import org.junit.Before
@@ -18,7 +20,7 @@ class ScenarioTest {
     private lateinit var loadPage: LoadPage
     private lateinit var jokePage: JokePage
 
-    private fun recreate(){
+    private fun recreate() {
         activityScenarioRule.scenario.recreate()
     }
 
@@ -61,8 +63,8 @@ class ScenarioTest {
             jokePage.clickNextJoke()
 
             jokePage = JokePage(
-                "Category${it+1}",
-                "Joke${it+1}"
+                "Category${it + 1}",
+                "Joke${it + 1}"
             )
 
             jokePage.checkStateIsJoke()

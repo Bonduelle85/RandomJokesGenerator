@@ -1,4 +1,4 @@
-package com.example.randomjokesgenerator
+package com.example.randomjokesgenerator.load
 
 import android.view.View
 import android.widget.LinearLayout
@@ -7,6 +7,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import com.example.randomjokesgenerator.R
+import com.example.randomjokesgenerator.Wait
 import org.hamcrest.Matcher
 
 class LoadPage {

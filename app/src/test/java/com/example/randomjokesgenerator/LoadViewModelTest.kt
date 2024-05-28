@@ -7,6 +7,8 @@ import com.example.randomjokesgenerator.load.presentation.LoadViewModel
 import com.example.randomjokesgenerator.load.presentation.UiObservable
 import com.example.randomjokesgenerator.load.presentation.UpdateUiCallback
 import com.example.randomjokesgenerator.main.presentation.RunAsync
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -56,7 +58,7 @@ class FakeLoadRepository : LoadRepository {
     private var returnSuccess = false
     var saveLastScreenIsCalled = false
 
-    override fun load(): LoadResult {
+    override suspend fun load(): LoadResult {
         return if (returnSuccess)
             LoadResult.Success
         else {
@@ -72,11 +74,19 @@ class FakeLoadRepository : LoadRepository {
 
 class FakeRunAsync : RunAsync {
 
-    override fun <T : Any> runAsync(background: () -> T, ui: (T) -> Unit) {
+//    override fun <T : Any> runAsync(background: () -> T, ui: (T) -> Unit) {
+//        val result = background.invoke()
+//        ui.invoke(result)
+//    }
+
+    override fun <T : Any> runAsync(coroutineScope: CoroutineScope, background: suspend () -> T, ui: (T) -> Unit) = runBlocking {
         val result = background.invoke()
         ui.invoke(result)
     }
+
+    override fun cancelLastJob() {}
 }
+
 
 class FakeUiObservable : UiObservable {
     val uiStateList = mutableListOf<LoadUiState>()

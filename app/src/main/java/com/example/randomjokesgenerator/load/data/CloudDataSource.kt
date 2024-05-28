@@ -6,11 +6,11 @@ import java.net.UnknownHostException
 
 interface CloudDataSource {
 
-    fun data(): List<CategoryAndJokeCloud>
+    suspend fun data(): List<CategoryAndJokeCloud>
 
     class Base(private val jokeService: JokeService) : CloudDataSource {
 
-        override fun data(): List<CategoryAndJokeCloud> {
+        override suspend fun data(): List<CategoryAndJokeCloud> {
             try {
                 val data: Call<ResponseCloud> = jokeService.data()
                 return data.execute().body()!!.items

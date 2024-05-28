@@ -1,4 +1,4 @@
-package com.example.randomjokesgenerator
+package com.example.randomjokesgenerator.load
 
 import android.view.View
 import android.widget.TextView
@@ -9,6 +9,8 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import com.example.randomjokesgenerator.R
+import com.example.randomjokesgenerator.WaitAction
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.Matcher

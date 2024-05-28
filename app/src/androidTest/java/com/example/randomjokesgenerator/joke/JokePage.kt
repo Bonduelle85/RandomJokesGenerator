@@ -1,10 +1,11 @@
-package com.example.randomjokesgenerator
+package com.example.randomjokesgenerator.joke
 
 import android.view.View
 import android.widget.LinearLayout
 import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import com.example.randomjokesgenerator.R
 import org.hamcrest.Matcher
 
 class JokePage(

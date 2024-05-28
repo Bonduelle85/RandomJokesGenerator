@@ -11,23 +11,18 @@ import com.google.gson.Gson
 class Core(context: Context) {
 
     val max = 10
-
-    val runUiTest: Boolean = true
+    val runUiTest: Boolean = false
 
     val gson = Gson()
-
     val sharedPreferencesFileName =
         if (runUiTest) "ui_test"
         else context.getString(R.string.app_name)
-
     val sharedPreferences =
         context.getSharedPreferences(sharedPreferencesFileName, Context.MODE_PRIVATE)
-
     val cachedJokes = CacheDataSource.Base(
         StringCache.Base(CACHED_JOKES, sharedPreferences, ""),
         Gson()
     )
-
     val lastScreen =
         StringCache.Base(LAST_SCREEN, sharedPreferences, LoadScreen::class.java.canonicalName!!)
 
